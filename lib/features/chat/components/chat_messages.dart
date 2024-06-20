@@ -5,8 +5,10 @@ import 'package:messenger/models/chat_user.dart';
 import 'package:messenger/theme.dart';
 
 class ChatMessages extends StatefulWidget {
-  const ChatMessages({super.key, required this.user});
+  const ChatMessages(
+      {super.key, required this.user, required this.scrollController});
   final ChatUser user;
+  final ScrollController scrollController;
 
   @override
   State<ChatMessages> createState() => _ChatMessagesState();
@@ -32,6 +34,9 @@ class _ChatMessagesState extends State<ChatMessages> {
               ));
             }
             setState(() {});
+            widget.scrollController.jumpTo(
+              widget.scrollController.position.maxScrollExtent,
+            );
           }
         }
       },
@@ -49,6 +54,7 @@ class _ChatMessagesState extends State<ChatMessages> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: ListView.builder(
+        controller: widget.scrollController,
         itemCount: messages.length,
         itemBuilder: (context, index) {
           return Align(

@@ -14,6 +14,7 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var scrollController = ScrollController();
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.white,
@@ -40,8 +41,14 @@ class ChatPage extends StatelessWidget {
           child: Divider(),
         ),
       ),
-      body: ChatMessages(user: user),
-      bottomNavigationBar: ChatBottom(user: user),
+      body: ChatMessages(
+        user: user,
+        scrollController: scrollController,
+      ),
+      bottomNavigationBar: ChatBottom(
+        user: user,
+        scrollController: scrollController,
+      ),
     );
   }
 }

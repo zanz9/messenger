@@ -32,7 +32,6 @@ class _ChatListWidgetState extends State<ChatListWidget> {
     );
 
     widget.searchController.addListener(() async {
-      print(123123123);
       users = await ChatRepository.getAllUsers(
           search: widget.searchController.text);
       setState(() {});

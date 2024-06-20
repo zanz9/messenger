@@ -8,8 +8,10 @@ class ChatBottom extends StatefulWidget {
   const ChatBottom({
     super.key,
     required this.user,
+    required this.scrollController,
   });
   final ChatUser user;
+  final ScrollController scrollController;
 
   @override
   State<ChatBottom> createState() => _ChatBottomState();
@@ -33,6 +35,12 @@ class _ChatBottomState extends State<ChatBottom> {
     setState(() {
       isSendMessage = false;
     });
+
+    widget.scrollController.animateTo(
+      widget.scrollController.position.maxScrollExtent,
+      duration: const Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   @override
@@ -70,6 +78,16 @@ class _ChatBottomState extends State<ChatBottom> {
                   text: 'Сообщение',
                   controller: messageController,
                   isMultipleLines: true,
+                  onTap: () {
+                    Future.delayed(const Duration(milliseconds: 300))
+                        .then((value) {
+                      widget.scrollController.animateTo(
+                        widget.scrollController.position.maxScrollExtent + 50,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
+                    });
+                  },
                 ),
               ),
               const SizedBox(width: 8),

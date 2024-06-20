@@ -8,12 +8,14 @@ class InputWidget extends StatelessWidget {
     this.prefixIcon,
     this.isMultipleLines = false,
     required this.controller,
+    this.onTap,
   });
 
   final String text;
   final Widget? prefixIcon;
   final bool isMultipleLines;
   final TextEditingController controller;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class InputWidget extends StatelessWidget {
         color: CustomColors.stroke,
       ),
       child: TextField(
+        onTap: onTap,
         controller: controller,
         maxLines: isMultipleLines ? null : 1,
         keyboardType: isMultipleLines ? TextInputType.multiline : null,
