@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:messenger/theme.dart';
 
 class UserWithAvatar extends StatelessWidget {
   const UserWithAvatar({

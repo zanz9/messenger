@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messenger/features/chat/chat_page.dart';
+import 'package:messenger/features/chat_list/chat_list_page.dart';
 import 'package:messenger/theme.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         dividerColor: CustomColors.stroke,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: const ChatPage(),
+      home: const ChatListPage(),
     );
   }
 }
