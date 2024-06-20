@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger/features/components/input_widget.dart';
 import 'package:messenger/models/chat_user.dart';
@@ -41,6 +44,14 @@ class _ChatBottomState extends State<ChatBottom> {
       duration: const Duration(seconds: 1),
       curve: Curves.fastOutSlowIn,
     );
+  }
+
+  onSendFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      File file = File(result.files.single.path!);
+    }
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ChatUser {
   final String email;
   final String name;
@@ -5,7 +7,7 @@ class ChatUser {
   late String? chatId;
   late String? lastMessage;
   late String? lastMessageFrom;
-  late DateTime? lastMessageTime;
+  late Timestamp? lastMessageTime;
 
   ChatUser({
     required this.email,

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:messenger/features/components/user_with_avatar.dart';
@@ -67,22 +68,32 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                   UserWithAvatar(
                     title: user.name,
                     subtitle: Row(
-                      children: [
-                        Text(
-                          'Вы: ',
-                          style: theme.textTheme.bodyMedium,
-                        ),
-                        Text(
-                          'Привет!',
-                          style: theme.textTheme.bodyMedium!.copyWith(
-                            color: CustomColors.darkGray,
-                          ),
-                        ),
-                      ],
+                      children: user.lastMessage == null
+                          ? []
+                          : [
+                              user.lastMessageFrom ==
+                                      FirebaseAuth.instance.currentUser!.email
+                                  ? Text(
+                                      'Вы: ',
+                                      style: theme.textTheme.bodyMedium,
+                                    )
+                                  : const SizedBox(),
+                              Text(
+                                '${user.lastMessage!.length > 35 ? '${user.lastMessage!.substring(0, 35)}...' : user.lastMessage}',
+                                style: theme.textTheme.bodyMedium!.copyWith(
+                                  color: CustomColors.darkGray,
+                                ),
+                              ),
+                            ],
                     ),
                   ),
                   Text(
-                    'Вчера',
+                    user.lastMessageTime == null
+                        ? ''
+                        : user.lastMessageTime!
+                            .toDate()
+                            .toString()
+                            .substring(11, 16),
                     style: theme.textTheme.bodySmall!.copyWith(
                       color: CustomColors.darkGray,
                     ),

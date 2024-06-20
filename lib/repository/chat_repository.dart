@@ -19,7 +19,6 @@ class ChatRepository {
         email: user.id,
         name: data['name'],
       );
-      usersList.add(chatUser);
 
       var a = await db
           .collection("chats")
@@ -30,11 +29,17 @@ class ChatRepository {
         var dataChat = element.data();
         if (dataChat['users'].contains(user.id)) {
           chatUser.chatId = element.id;
-          if (dataChat['message'] != null) {
-            chatUser.lastMessage = (dataChat['message'] as List).lastOrNull;
+          if (dataChat['messages'] != null) {
+            var messages = dataChat['messages'];
+            var last = (messages as List).lastOrNull;
+            chatUser.lastMessage = last['message'];
+            chatUser.lastMessageTime = last['time'];
+            chatUser.lastMessageFrom = last['from'];
+            print(chatUser);
           }
         }
       }
+      usersList.add(chatUser);
     }
     return usersList;
   }
