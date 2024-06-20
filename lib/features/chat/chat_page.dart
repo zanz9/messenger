@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:messenger/features/components/user_with_avatar.dart';
 import 'package:messenger/theme.dart';
 
@@ -18,7 +19,9 @@ class ChatPage extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_ios_new,
           ),
-          onPressed: () {},
+          onPressed: () {
+            context.pop();
+          },
         ),
         title: UserWithAvatar(
           title: 'Виктор Власов',
