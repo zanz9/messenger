@@ -1,13 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:messenger/features/components/user_with_avatar.dart';
+import 'package:messenger/models/chat_user.dart';
+import 'package:messenger/repository/chat_repository.dart';
 import 'package:messenger/router.dart';
 import 'package:messenger/theme.dart';
 
-class ChatListWidget extends StatelessWidget {
+class ChatListWidget extends StatefulWidget {
   const ChatListWidget({
     super.key,
   });
+
+  @override
+  State<ChatListWidget> createState() => _ChatListWidgetState();
+}
+
+class _ChatListWidgetState extends State<ChatListWidget> {
+  bool isLoaded = false;
+  List<ChatUser> users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    ChatRepository.getAllUsers().then(
+      (value) => setState(() {
+        users = value;
+        isLoaded = true;
+      }),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,44 +36,54 @@ class ChatListWidget extends StatelessWidget {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       sliver: SliverList.separated(
-        itemBuilder: (context, index) => GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            context.pushNamed(RouterNames.CHAT_PAGE);
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                UserWithAvatar(
-                  title: 'Виктор Власов',
-                  subtitle: Row(
-                    children: [
-                      Text(
-                        'Вы: ',
-                        style: theme.textTheme.bodyMedium,
-                      ),
-                      Text(
-                        'Привет!',
-                        style: theme.textTheme.bodyMedium!.copyWith(
-                          color: CustomColors.darkGray,
+        itemCount: users.length,
+        itemBuilder: (context, index) {
+          var user = users[index];
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              if (user.chatId == null) {
+                ChatRepository.createNewChat(user.email).then((value) {
+                  context.pushNamed(RouterNames.CHAT_PAGE, extra: user);
+                });
+              } else {
+                context.pushNamed(RouterNames.CHAT_PAGE, extra: user);
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  UserWithAvatar(
+                    title: '${user.firstName} ${user.lastName}',
+                    subtitle: Row(
+                      children: [
+                        Text(
+                          'Вы: ',
+                          style: theme.textTheme.bodyMedium,
                         ),
-                      ),
-                    ],
+                        Text(
+                          'Привет!',
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            color: CustomColors.darkGray,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Text(
-                  'Вчера',
-                  style: theme.textTheme.bodySmall!.copyWith(
-                    color: CustomColors.darkGray,
-                  ),
-                )
-              ],
+                  Text(
+                    'Вчера',
+                    style: theme.textTheme.bodySmall!.copyWith(
+                      color: CustomColors.darkGray,
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
         separatorBuilder: (context, index) => const Divider(),
       ),
     );

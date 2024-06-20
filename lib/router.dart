@@ -7,6 +7,7 @@ import 'package:messenger/features/auth/login_page.dart';
 import 'package:messenger/features/auth/register_page.dart';
 import 'package:messenger/features/chat/chat_page.dart';
 import 'package:messenger/features/chat_list/chat_list_page.dart';
+import 'package:messenger/models/chat_user.dart';
 
 class RouterNames {
   static const String CHAT_LIST_PAGE = 'CHAT_LIST_PAGE';
@@ -23,10 +24,12 @@ final router = GoRouter(
       builder: (context, state) => const ChatListPage(),
     ),
     GoRoute(
-      path: '/chat',
-      name: RouterNames.CHAT_PAGE,
-      builder: (context, state) => const ChatPage(),
-    ),
+        path: '/chat',
+        name: RouterNames.CHAT_PAGE,
+        builder: (context, state) {
+          ChatUser user = state.extra as ChatUser;
+          return ChatPage(user: user);
+        }),
     GoRoute(
       path: '/login',
       name: RouterNames.LOGIN_PAGE,

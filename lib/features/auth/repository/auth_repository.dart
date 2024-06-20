@@ -1,22 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class AuthRepository {
   static Future<String?> register(
       String email, password, firstName, lastName) async {
     try {
+      var db = FirebaseFirestore.instance;
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email.trim().toLowerCase(),
         password: password.trim().toLowerCase(),
       );
       final user = <String, dynamic>{
-        "email": email.trim().toLowerCase(),
         "firstName": firstName.trim(),
         "lastName": lastName.trim(),
       };
-      var key = FirebaseDatabase.instance.ref("users").push().key;
-      var userRef = FirebaseDatabase.instance.ref("users/$key");
-      userRef.set(user);
+      await db.collection("users").doc(email.trim().toLowerCase()).set(user);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return 'Пользователь не найден';

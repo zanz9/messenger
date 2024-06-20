@@ -12,13 +12,19 @@ class UserWithAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+
+    getAvatarString() {
+      var words = title.split(' ');
+      return words[0][0] + words[1][0];
+    }
+
     return Row(
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           foregroundColor: Colors.white,
           backgroundColor: Colors.green,
           radius: 25,
-          child: Text('ВВ', style: TextStyle(fontSize: 20)),
+          child: Text(getAvatarString(), style: const TextStyle(fontSize: 20)),
         ),
         const SizedBox(width: 12),
         Column(

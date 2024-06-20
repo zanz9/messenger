@@ -1,15 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:messenger/features/components/input_widget.dart';
+import 'package:messenger/models/chat_user.dart';
+import 'package:messenger/repository/chat_repository.dart';
 import 'package:messenger/theme.dart';
 
-class ChatBottom extends StatelessWidget {
+class ChatBottom extends StatefulWidget {
   const ChatBottom({
     super.key,
+    required this.user,
   });
+  final ChatUser user;
+
+  @override
+  State<ChatBottom> createState() => _ChatBottomState();
+}
+
+class _ChatBottomState extends State<ChatBottom> {
+  TextEditingController messageController = TextEditingController();
+  bool isSendMessage = false;
+
+  onSend() async {
+    if (messageController.text.isEmpty) return;
+
+    setState(() {
+      isSendMessage = true;
+    });
+    await ChatRepository.sendMessage(
+      widget.user.chatId!,
+      messageController.text.trim(),
+    );
+    messageController.text = '';
+    setState(() {
+      isSendMessage = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController messageController = TextEditingController();
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.only(
@@ -46,14 +73,17 @@ class ChatBottom extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               GestureDetector(
-                onTap: () {},
+                onTap: onSend,
                 child: Container(
                   decoration: BoxDecoration(
                     color: CustomColors.stroke,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   padding: const EdgeInsets.all(12),
-                  child: const Icon(Icons.send),
+                  child: Icon(
+                    Icons.send,
+                    color: isSendMessage ? Colors.green : Colors.black,
+                  ),
                 ),
               ),
             ],

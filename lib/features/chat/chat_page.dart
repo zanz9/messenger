@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:messenger/features/chat_list/components/chat_messages.dart';
 import 'package:messenger/features/components/user_with_avatar.dart';
+import 'package:messenger/models/chat_user.dart';
 import 'package:messenger/theme.dart';
 
 import 'components/chat_bottom.dart';
 
 class ChatPage extends StatelessWidget {
-  const ChatPage({super.key});
+  const ChatPage({super.key, required this.user});
+  final ChatUser user;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class ChatPage extends StatelessWidget {
           },
         ),
         title: UserWithAvatar(
-          title: 'Виктор Власов',
+          title: '${user.firstName} ${user.lastName}',
           subtitle: Text(
             'В сети',
             style: theme.textTheme.bodyMedium!.copyWith(
@@ -37,10 +40,8 @@ class ChatPage extends StatelessWidget {
           child: Divider(),
         ),
       ),
-      body: const Center(
-        child: Text('Чат'),
-      ),
-      bottomNavigationBar: const ChatBottom(),
+      body: ChatMessages(user: user),
+      bottomNavigationBar: ChatBottom(user: user),
     );
   }
 }
