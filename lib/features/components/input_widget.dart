@@ -7,11 +7,13 @@ class InputWidget extends StatelessWidget {
     required this.text,
     this.prefixIcon,
     this.isMultipleLines = false,
+    required this.controller,
   });
 
   final String text;
   final Widget? prefixIcon;
   final bool isMultipleLines;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class InputWidget extends StatelessWidget {
         color: CustomColors.stroke,
       ),
       child: TextField(
+        controller: controller,
         maxLines: isMultipleLines ? null : 1,
         keyboardType: isMultipleLines ? TextInputType.multiline : null,
         decoration: InputDecoration(

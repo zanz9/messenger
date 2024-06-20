@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger/features/components/input_widget.dart';
 import 'package:messenger/theme.dart';
@@ -10,6 +11,9 @@ class ChatListHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+
+    TextEditingController searchController = TextEditingController();
+
     return SliverAppBar(
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,
@@ -25,27 +29,43 @@ class ChatListHeader extends StatelessWidget {
             padding: const EdgeInsets.only(left: 20, right: 20, top: 12),
             child: SizedBox(
               height: 80,
-              child: Text(
-                'Чаты',
-                style: theme.textTheme.titleLarge!
-                    .copyWith(fontWeight: FontWeight.w600, fontSize: 36),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Чаты',
+                    style: theme.textTheme.titleLarge!
+                        .copyWith(fontWeight: FontWeight.w600, fontSize: 36),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.logout,
+                      color: CustomColors.darkGray,
+                    ),
+                    onPressed: () async {
+                      await FirebaseAuth.instance.signOut();
+                    },
+                  ),
+                ],
               ),
             ),
           ),
         ),
       ),
-      bottom: const PreferredSize(
-        preferredSize: Size(double.infinity, 16),
+      bottom: PreferredSize(
+        preferredSize: const Size(double.infinity, 16),
         child: Padding(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 12),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InputWidget(
                 text: 'Поиск',
-                prefixIcon: Icon(Icons.search, color: CustomColors.gray),
+                prefixIcon: const Icon(Icons.search, color: CustomColors.gray),
+                controller: searchController,
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
             ],
           ),
         ),

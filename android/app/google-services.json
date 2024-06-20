@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "842995137237",
+    "firebase_url": "https://messenger-2c623-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "messenger-2c623",
+    "storage_bucket": "messenger-2c623.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842995137237:android:281aed4ab0dabd4d4ec05c",
+        "android_client_info": {
+          "package_name": "com.example.messenger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg0Dd4oFtOQ9H2lCYLpR2kKedZwfWYS1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,6 +9,7 @@ class ChatBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController messageController = TextEditingController();
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.only(
@@ -37,9 +38,10 @@ class ChatBottom extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              const Expanded(
+              Expanded(
                 child: InputWidget(
                   text: 'Сообщение',
+                  controller: messageController,
                 ),
               ),
               const SizedBox(width: 8),
