@@ -9,7 +9,9 @@ import 'package:messenger/theme.dart';
 class ChatListWidget extends StatefulWidget {
   const ChatListWidget({
     super.key,
+    required this.searchController,
   });
+  final TextEditingController searchController;
 
   @override
   State<ChatListWidget> createState() => _ChatListWidgetState();
@@ -28,6 +30,13 @@ class _ChatListWidgetState extends State<ChatListWidget> {
         isLoaded = true;
       }),
     );
+
+    widget.searchController.addListener(() async {
+      print(123123123);
+      users = await ChatRepository.getAllUsers(
+          search: widget.searchController.text);
+      setState(() {});
+    });
   }
 
   @override
@@ -57,7 +66,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   UserWithAvatar(
-                    title: '${user.firstName} ${user.lastName}',
+                    title: user.name,
                     subtitle: Row(
                       children: [
                         Text(

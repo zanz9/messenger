@@ -3,17 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messenger/models/chat_user.dart';
 
 class ChatRepository {
-  static Future<List<ChatUser>> getAllUsers() async {
+  static Future<List<ChatUser>> getAllUsers({String search = ""}) async {
     var db = FirebaseFirestore.instance;
-    final users = await db.collection("users").get();
+    final usersRef = db.collection("users");
+    final users = await usersRef
+        .where('name', isGreaterThanOrEqualTo: search)
+        .where('name', isLessThanOrEqualTo: '$search\uf8ff')
+        .get();
+
     List<ChatUser> usersList = [];
     for (var user in users.docs) {
       if (user.id == FirebaseAuth.instance.currentUser!.email) continue;
       var data = user.data();
       var chatUser = ChatUser(
         email: user.id,
-        firstName: data['firstName'],
-        lastName: data['lastName'],
+        name: data['name'],
       );
       usersList.add(chatUser);
 

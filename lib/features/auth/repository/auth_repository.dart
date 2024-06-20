@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepository {
-  static Future<String?> register(
-      String email, password, firstName, lastName) async {
+  static Future<String?> register(String email, password, name) async {
     try {
       var db = FirebaseFirestore.instance;
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -11,8 +10,7 @@ class AuthRepository {
         password: password.trim().toLowerCase(),
       );
       final user = <String, dynamic>{
-        "firstName": firstName.trim(),
-        "lastName": lastName.trim(),
+        "name": name.trim(),
       };
       await db.collection("users").doc(email.trim().toLowerCase()).set(user);
     } on FirebaseAuthException catch (e) {

@@ -10,12 +10,13 @@ class ChatListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    TextEditingController searchController = TextEditingController();
+    return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
-          ChatListHeader(),
-          ChatListWidget(),
+          ChatListHeader(searchController: searchController),
+          ChatListWidget(searchController: searchController),
         ],
       ),
     );

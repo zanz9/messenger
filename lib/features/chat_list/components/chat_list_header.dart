@@ -6,13 +6,13 @@ import 'package:messenger/theme.dart';
 class ChatListHeader extends StatelessWidget {
   const ChatListHeader({
     super.key,
+    required this.searchController,
   });
+  final TextEditingController searchController;
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-
-    TextEditingController searchController = TextEditingController();
 
     return SliverAppBar(
       backgroundColor: Colors.white,

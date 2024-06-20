@@ -14,8 +14,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   TextEditingController emailController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
+  TextEditingController name = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   bool isPressed = false;
@@ -26,8 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
     await AuthRepository.register(
       emailController.text,
       passwordController.text,
-      firstNameController.text,
-      lastNameController.text,
+      name.text,
     );
     isPressed = false;
     setState(() {});
@@ -48,9 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             InputWidget(text: 'Email', controller: emailController),
             const SizedBox(height: 12),
-            InputWidget(text: 'Имя', controller: firstNameController),
-            const SizedBox(height: 12),
-            InputWidget(text: 'Фамилия', controller: lastNameController),
+            InputWidget(text: 'Ваше имя и фамилия', controller: name),
             const SizedBox(height: 12),
             InputWidget(text: 'Пароль', controller: passwordController),
             const SizedBox(height: 12),

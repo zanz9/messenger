@@ -1,7 +1,6 @@
 class ChatUser {
   final String email;
-  final String firstName;
-  final String lastName;
+  final String name;
 
   late String? chatId;
   late String? lastMessage;
@@ -10,8 +9,7 @@ class ChatUser {
 
   ChatUser({
     required this.email,
-    required this.firstName,
-    required this.lastName,
+    required this.name,
     this.chatId,
     this.lastMessage,
     this.lastMessageFrom,

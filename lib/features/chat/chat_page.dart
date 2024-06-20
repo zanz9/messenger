@@ -27,7 +27,7 @@ class ChatPage extends StatelessWidget {
           },
         ),
         title: UserWithAvatar(
-          title: '${user.firstName} ${user.lastName}',
+          title: user.name,
           subtitle: Text(
             'В сети',
             style: theme.textTheme.bodyMedium!.copyWith(
