@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:messenger/features/components/user_with_avatar.dart';
 import 'package:messenger/theme.dart';
 
 class ChatListPage extends StatelessWidget {
@@ -81,41 +82,22 @@ class ChatListPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        const CircleAvatar(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.green,
-                          radius: 25,
-                          child: Text('ВВ', style: TextStyle(fontSize: 20)),
-                        ),
-                        const SizedBox(width: 12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Виктор Власов',
-                              style: theme.textTheme.bodyLarge!.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
+                    UserWithAvatar(
+                      title: 'Виктор Власов',
+                      subtitle: Row(
+                        children: [
+                          Text(
+                            'Вы: ',
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                          Text(
+                            'Привет!',
+                            style: theme.textTheme.bodyMedium!.copyWith(
+                              color: CustomColors.darkGray,
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Вы: ',
-                                  style: theme.textTheme.bodyMedium,
-                                ),
-                                Text(
-                                  'Привет!',
-                                  style: theme.textTheme.bodyMedium!.copyWith(
-                                    color: CustomColors.darkGray,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
                     Text(
                       'Вчера',
