@@ -58,19 +58,32 @@ class _ChatMessagesState extends State<ChatMessages> {
                     : Alignment.centerLeft,
             child: UnconstrainedBox(
               child: Container(
-                decoration: const BoxDecoration(
-                  color: CustomColors.green,
+                decoration: BoxDecoration(
+                  color: messages[index].from ==
+                          FirebaseAuth.instance.currentUser!.email
+                      ? CustomColors.green
+                      : CustomColors.stroke,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(0),
+                    topLeft: const Radius.circular(20),
+                    topRight: const Radius.circular(20),
+                    bottomLeft: messages[index].from ==
+                            FirebaseAuth.instance.currentUser!.email
+                        ? const Radius.circular(20)
+                        : const Radius.circular(0),
+                    bottomRight: messages[index].from ==
+                            FirebaseAuth.instance.currentUser!.email
+                        ? const Radius.circular(0)
+                        : const Radius.circular(20),
                   ),
                 ),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                child: Text(messages[index].message),
+                child: Row(
+                  children: [
+                    Text(messages[index].message),
+                  ],
+                ),
               ),
             ),
           );

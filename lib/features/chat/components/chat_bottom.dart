@@ -69,6 +69,7 @@ class _ChatBottomState extends State<ChatBottom> {
                 child: InputWidget(
                   text: 'Сообщение',
                   controller: messageController,
+                  isMultipleLines: true,
                 ),
               ),
               const SizedBox(width: 8),
